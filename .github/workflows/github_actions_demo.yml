@@ -35,7 +35,7 @@ jobs:
         
     - name: Run robotframework
       run: |
-        robot -d results demo.robot
+        robot -v username:${{secrets.username}} -v pwd:${{secrets.pwd}} -d results demo.robot
 
     - name: Upload Results
       uses: actions/upload-artifact@v4
