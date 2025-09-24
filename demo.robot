@@ -6,6 +6,10 @@ ${demo_url}    https://demowebshop.tricentis.com/
 ${browser}     firefox
 
 *** Keywords ***
+Launch Browser
+    ${service}=  Evaluate  sys.modules['selenium.webdriver.firefox.service'].Service('/snap/bin/geckodriver')   sys, selenium.webdriver.firefox.service
+    open browser       browser=headlessFirefox   service=${service}
+
 wait and click
      [Arguments]   ${el_xpath}
      Wait Until Keyword Succeeds   9x   5s    click element    ${el_xpath}
@@ -37,7 +41,7 @@ I should be able to validate the total cart price
 
 *** Test Cases ***
 Test automation Demo with Robot framework
-    [Setup]   Open Browser  browser=${browser}
+    [Setup]   Launch browser
     Given I login into Tricentis application with "${username}" and "${pwd}"
     When I add products into the cart
     Then I should be able to validate the total cart price
